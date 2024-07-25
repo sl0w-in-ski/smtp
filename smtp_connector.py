@@ -495,16 +495,18 @@ class SmtpConnector(BaseConnector):
         :param encrypt_var: Variable needs to be encrypted
         :return: encrypted variable
         """
-        self.debug_print(SMTP_ENCRYPT_TOKEN.format(token_name))   # nosemgrep
-        return encryption_helper.encrypt(encrypt_var, self.get_asset_id())
+        self.debug_print(SMTP_ENCRYPT_TOKEN.format(token_name)) 
+        asset_id = str(self.get_asset_id()) # Ensure asset_id is a string
+        return encryption_helper.encrypt(encrypt_var, asset_id)
 
     def decrypt_state(self, decrypt_var, token_name):
         """ Handle decryption of token.
         :param decrypt_var: Variable needs to be decrypted
         :return: decrypted variable
         """
-        self.debug_print(SMTP_DECRYPT_TOKEN.format(token_name))    # nosemgrep
-        return encryption_helper.decrypt(decrypt_var, self.get_asset_id())
+        self.debug_print(SMTP_DECRYPT_TOKEN.format(token_name)) 
+        asset_id = str(self.get_asset_id()) # Ensure asset_id is a string
+        return encryption_helper.decrypt(decrypt_var, asset_id)
 
     def _get_error_message_from_exception(self, e):
         """
